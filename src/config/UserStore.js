@@ -6,7 +6,7 @@ const userContainer = create((set) => ({
     set((state) => ({
       isAuthorized: { ...state.token, isAuthorized: true }
     })),
-  removeAuthoritazion: () =>
+  removeAuthorization: () =>
     set((state) => ({
       isAuthorized: { ...state.token, isAuthorized: false }
     }))

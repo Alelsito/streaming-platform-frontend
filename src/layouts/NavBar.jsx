@@ -1,5 +1,11 @@
-// Location
-import { useLocation } from 'react-router-dom'
+// React
+import { useEffect } from 'react'
+
+// React Router Dom
+import { useLocation, useNavigate, Link } from 'react-router-dom'
+
+// Zustand
+import userContainer from '../config/UserStore'
 
 // Logo
 import Logo from '../assets/AmazonPrimeVideoLogo.png'
@@ -7,6 +13,9 @@ import Logo from '../assets/AmazonPrimeVideoLogo.png'
 const NavBar = () => {
   const location = useLocation()
   const pathname = location.pathname
+  const navigate = useNavigate()
+
+  const removeAuthorization = userContainer((state) => state.removeAuthorization)
 
   return (
     <>
@@ -15,9 +24,9 @@ const NavBar = () => {
         (
           <nav className='pt-10 dark:bg-gray-900 fixed w-full top-0 left-0'>
             <div className='flex items-center justify-between w-full px-10 md:px-10 lg:px-16 2xl:px-20'>
-              <a href='' className='flex items-center'>
+              <Link to='/home' className='flex items-center'>
                 <img src={Logo} className='mr-3 h-7 md:h-10' alt='AmazonPrimeVideoLogo' />
-              </a>
+              </Link>
 
               <form className='flex items-center ml-0 md:-ml-8 lg:-ml-11'>
                 <label htmlFor='simple-search' className='sr-only'>
@@ -72,6 +81,10 @@ const NavBar = () => {
               <div className='flex md:order-2'>
                 <button
                   type='button'
+                  onClick={(e) => {
+                    removeAuthorization()
+                    navigate('/')
+                  }}
                   className='text-white border font-semibold rounded-lg text-xs md:text-sm px-3 md:px-5 py-2 text-center'
                 >
                   Logout
@@ -81,14 +94,14 @@ const NavBar = () => {
             <div className='flex justify-center mt-6'>
               <ul className='flex flex-row space-x-5 sm:space-x-5 md:space-x-5 lg:space-x-7 xl:space-x-10 text-base md:text-lg lg:text-xl font-medium'>
                 <li className={pathname === '/home' ? 'border-b-2 pb-1 px-2' : ''}>
-                  <a href='#' className={pathname !== '/home' ? 'text-slate-400' : 'text-white'}>
+                  <Link to='/home' className={pathname !== '/home' ? 'text-slate-400' : 'text-white'}>
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className={pathname !== '/home' ? 'border-b-2 pb-1 px-2' : ''}>
-                  <a href='#' className={pathname !== '/new-movie' ? 'text-slate-400' : 'text-white'}>
+                  <Link className={pathname !== '/new-movie' ? 'text-slate-400' : 'text-white'}>
                     New Movie
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
