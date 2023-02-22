@@ -1,6 +1,9 @@
 // React
 import { useState } from 'react'
 
+// React Router Dom
+import { useNavigate } from 'react-router-dom'
+
 // Query and Apollo Client
 import { LOGIN } from '../graphql/Queries'
 import { useLazyQuery } from '@apollo/client/react'
@@ -13,6 +16,7 @@ import Logo from '../assets/AmazonPrimeVideoLogo.png'
 
 const LoginForm = () => {
   const addAuthorization = userContainer((state) => state.addAuthorization)
+  const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -41,6 +45,7 @@ const LoginForm = () => {
               await login().then(function (response) {
                 if (response.data.login === 'Ok User') {
                   addAuthorization()
+                  navigate('/home')
                 } else {
                   setInvalidCredentials(true)
                 }

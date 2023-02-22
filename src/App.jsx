@@ -4,8 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Apollo Client
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
-// Components
+// Pages
 import Login from './pages/Login'
+import Home from './pages/Home'
+
+// Layouts
+import NavBar from './layouts/NavBar'
 
 // Styles
 import './styles/App.css'
@@ -18,8 +22,10 @@ function App () {
   return (
     <Router>
       <ApolloProvider client={client}>
+        <NavBar />
         <Routes>
           <Route index element={<Login />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
       </ApolloProvider>
     </Router>
