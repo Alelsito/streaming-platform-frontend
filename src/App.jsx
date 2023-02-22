@@ -1,8 +1,19 @@
-import './App.css'
+// React Router Dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+// Components
+import Login from './pages/Login'
+
+// Styles
+import './styles/App.css'
 
 function App () {
   return (
-    <div className='App' />
+    <Router>
+      <Routes>
+        <Route index element={<Login />} />
+      </Routes>
+    </Router>
   )
 }
 
