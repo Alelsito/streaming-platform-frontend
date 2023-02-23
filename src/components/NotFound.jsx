@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const NotFound = () => {
   return (
     <div
-      className='flex items-center justify-center mt-44'
+      className='flex items-center justify-center'
     >
       <div className='px-32 py-10 rounded-md'>
         <div className='flex flex-col items-center'>
@@ -14,7 +14,7 @@ const NotFound = () => {
             <span className='text-white'>Page not found</span>
           </h6>
           <p className='mb-5 text-center text-gray-200 md:text-lg'>
-            There is no result of your search
+            There are no results for your search
           </p>
           <Link
             to='/home'

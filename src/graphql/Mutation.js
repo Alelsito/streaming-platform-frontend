@@ -12,3 +12,16 @@ export const UPDATE_MOVIE = gql`
         }
     }
 `
+
+export const CREATE_MOVIE = gql`
+    mutation createMovie($title: String, $description: String, $likes: Int, $image: String, $dateOfReleased: String){
+        createMovie(title: $title, description: $description, likes: $likes, image: $image, dateOfReleased: $dateOfReleased){
+            _id
+            title
+            description
+            likes
+            image
+            dateOfReleased
+        }
+    }
+`

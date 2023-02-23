@@ -25,7 +25,7 @@ const NavBar = () => {
   const pathname = location.pathname
   const navigate = useNavigate()
 
-  const [searchedValue, setSearchValue] = useState('')
+  const [searchedValue, setSearchedValue] = useState('')
 
   const removeAuthorization = userContainer((state) => state.removeAuthorization)
   const addSearchedMovies = searchedMoviesContainer((state) => state.addSearchedMovies)
@@ -38,7 +38,7 @@ const NavBar = () => {
       {pathname !== '/' && (
         <nav className='pt-10 pb-4 fixed w-full top-0 left-0'>
           <div className='flex items-center justify-between w-full px-10 md:px-10 lg:px-16 2xl:px-20'>
-            <Link to='/home' className='flex items-center'>
+            <Link to='/home' onClick={() => setSearchedValue('')} className='flex items-center'>
               <img src={Logo} className='mr-3 h-7 md:h-10' alt='AmazonPrimeVideoLogo' />
             </Link>
 
@@ -77,11 +77,11 @@ const NavBar = () => {
                 </div>
                 <input
                   onChange={(e) => {
-                    setSearchValue(e.target.value)
+                    setSearchedValue(e.target.value)
                   }}
                   type='text'
                   id='simple-search'
-                  className='border border-gray-300 text-gray-200 text-sm rounded-tl-md rounded-bl-md w-full pl-10 py-2 sm:py-2.5 bg-transparent'
+                  className='border border-gray-300 text-gray-200 text-sm rounded-tl-md rounded-bl-md w-full pl-10 pr-3 py-2 sm:py-2.5 bg-transparent'
                   placeholder='Search'
                   required
                 />
@@ -133,6 +133,7 @@ const NavBar = () => {
               </li>
               <li className={pathname !== '/new-movie' ? '' : 'border-b-2 pb-1 px-2'}>
                 <Link
+                  to='/new-movie'
                   className={pathname !== '/new-movie' ? 'text-slate-400' : 'text-white'}
                 >
                   New Movie
