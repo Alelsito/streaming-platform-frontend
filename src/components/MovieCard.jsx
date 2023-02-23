@@ -1,33 +1,75 @@
-import React from 'react'
+// React
+import { useEffect, useState } from 'react'
+
+// Apollo/client
+import { useMutation } from '@apollo/client'
+
+// Query
+import { GET_MOVIES } from '../graphql/Queries'
+
+// Mutation
+import { UPDATE_MOVIE } from '../graphql/Mutation'
 
 const MovieCard = ({ data }) => {
-  const date = new Date(data.dateOfReleased).toLocaleDateString()
+  const [_id, setId] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [likes, setLikes] = useState('')
+  const [image, setImage] = useState('')
+  const [dateOfReleased, setDateOfReleased] = useState('')
+
+  const [isLikeUpdated, setIsLikeUpdated] = useState(false)
+
+  useEffect(() => {
+    setId(data._id)
+    setTitle(data.title)
+    setDescription(data.description)
+    setLikes(data.likes)
+    setImage(data.image)
+    setDateOfReleased(new Date(data.dateOfReleased).toLocaleDateString())
+  }, [])
+
+  // Mutation Update Movie
+  const [updateMovie] = useMutation(UPDATE_MOVIE, {
+    refetchQueries: [{ query: GET_MOVIES }]
+  })
 
   return (
     <div className='max-w-sm max-h-10 shadow xs:mt-40 md:mt-40 lg:mt-40 xl:mt-40 2xl:mt-44'>
       <div className='group relative bg-black rounded-md'>
         <img
-          alt={data.title}
-          src={data.image}
+          alt={title}
+          src={image}
           className='absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-md'
         />
         <div className='relative p-4 2xl:p-6'>
           <p className='xs:text-sm 2xl:text-sm font-bold uppercase -tracking-normal text-cyan-600'>
             Movie
           </p>
-          <p className='xs:text-lg 2xl:text-xl font-bold text-white'>
-            {data.title}
-          </p>
+          <p className='xs:text-lg 2xl:text-xl font-bold text-white'>{title}</p>
           <div className='flex justify-start space-x-4 translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 mt-2'>
             <p className='xs:text-sm 2xl:text-base font-medium text-white'>
-              {date}
+              {dateOfReleased}
             </p>
             <div className='flex space-x-1'>
-              <p className='xs:text-sm 2xl:text-base font-medium text-white'>
-                {data.likes}
-              </p>
+              <p className='xs:text-sm 2xl:text-base font-medium text-white'>{likes}</p>
               <svg
-                className='text-white pb-1 xs:w-5 xs:h-6 2xl:w-6 2xl:h-7'
+                onClick={async (e) => {
+                  if (isLikeUpdated) {
+                    setLikes(likes - 1)
+                    await updateMovie({ variables: { _id, likes: likes - 1 } })
+                    setIsLikeUpdated(false)
+                  } else {
+                    setLikes(likes + 1)
+                    await updateMovie({ variables: { _id, likes: likes + 1 } })
+                    setIsLikeUpdated(true)
+                  }
+                }}
+                className={
+                  isLikeUpdated
+                    ? 'text-white pt-1 xs:w-5 xs:h-6 2xl:w-6 2xl:h-7 hover:text-red-500 rotate-180'
+                    : 'text-white pb-1 xs:w-5 xs:h-6 2xl:w-6 2xl:h-7 hover:text-yellow-400'
+                }
                 viewBox='0 0 26 27'
                 stroke='currentColor'
                 fill='none'
@@ -39,9 +81,7 @@ const MovieCard = ({ data }) => {
           </div>
           <div className='w-80 h-18 pt-2'>
             <div className='translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100'>
-              <p className='xs:text-sm text-white'>
-                {data.description}
-              </p>
+              <p className='xs:text-sm text-white'>{description}</p>
             </div>
           </div>
         </div>
