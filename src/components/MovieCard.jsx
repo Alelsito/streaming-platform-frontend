@@ -35,24 +35,24 @@ const MovieCard = ({ data }) => {
   })
 
   return (
-    <div className='max-w-sm max-h-10 shadow xs:mt-40 md:mt-40 lg:mt-40 xl:mt-40 2xl:mt-44'>
-      <div className='group relative bg-black rounded-md'>
+    <div className='max-w-sm shadow'>
+      <div className='group relative bg-black rounded-md h-46 xs:h-48 2xl:h-48'>
         <img
           alt={title}
           src={image}
           className='absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-md'
         />
-        <div className='relative p-4 2xl:p-6'>
-          <p className='xs:text-sm 2xl:text-sm font-bold uppercase -tracking-normal text-cyan-600'>
+        <div className='relative p-4'>
+          <p className='text-sm 2xl:text-sm font-bold uppercase -tracking-normal text-cyan-600'>
             Movie
           </p>
-          <p className='xs:text-lg 2xl:text-xl font-bold text-white'>{title}</p>
+          <p className='text-lg 2xl:text-xl font-bold text-white'>{title}</p>
           <div className='flex justify-start space-x-4 translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 mt-2'>
-            <p className='xs:text-sm 2xl:text-base font-medium text-white'>
+            <p className='text-sm 2xl:text-base font-medium text-white'>
               {dateOfReleased}
             </p>
             <div className='flex space-x-1'>
-              <p className='xs:text-sm 2xl:text-base font-medium text-white'>{likes}</p>
+              <p className='text-sm 2xl:text-base font-medium text-white'>{likes}</p>
               <svg
                 onClick={async (e) => {
                   if (isLikeUpdated) {
@@ -67,8 +67,8 @@ const MovieCard = ({ data }) => {
                 }}
                 className={
                   isLikeUpdated
-                    ? 'text-white pt-1 xs:w-5 xs:h-6 2xl:w-6 2xl:h-7 hover:text-red-500 rotate-180'
-                    : 'text-white pb-1 xs:w-5 xs:h-6 2xl:w-6 2xl:h-7 hover:text-yellow-400'
+                    ? 'text-white pt-1 w-5 h-6 2xl:w-6 2xl:h-7 hover:text-red-500 rotate-180'
+                    : 'text-white pb-1 w-5 h-6 2xl:w-6 2xl:h-7 hover:text-yellow-400'
                 }
                 viewBox='0 0 26 27'
                 stroke='currentColor'
@@ -81,7 +81,7 @@ const MovieCard = ({ data }) => {
           </div>
           <div className='w-80 h-18 pt-2'>
             <div className='translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100'>
-              <p className='xs:text-sm text-white'>{description}</p>
+              <p className='text-sm text-white'>{description}</p>
             </div>
           </div>
         </div>
