@@ -21,6 +21,7 @@ const Home = () => {
   const getAuthorization = userContainer((state) => state.isAuthorized)
   const isAuthorized = getAuthorization.isAuthorized
 
+  // eslint-disable-next-line no-unused-vars
   const [getMovies, { data, error }] = useLazyQuery(GET_MOVIES)
 
   useEffect(() => {

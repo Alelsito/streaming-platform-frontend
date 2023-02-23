@@ -15,8 +15,8 @@ import userContainer from '../config/UserStore.js'
 import Logo from '../assets/AmazonPrimeVideoLogo.png'
 
 const LoginForm = () => {
-  const addAuthorization = userContainer((state) => state.addAuthorization)
   const navigate = useNavigate()
+  const addAuthorization = userContainer((state) => state.addAuthorization)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -58,7 +58,7 @@ const LoginForm = () => {
                 htmlFor='email'
                 className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
               >
-                E-mail or phone number
+                E-mail
               </label>
               <input
                 type='email'

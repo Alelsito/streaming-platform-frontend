@@ -1,8 +1,18 @@
+// React
+import { useState } from 'react'
+
 // React Router Dom
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 
 // Zustand
 import userContainer from '../config/UserStore'
+import searchedMoviesContainer from '../config/SearchedMovies'
+
+// Apollo/client
+import { useLazyQuery } from '@apollo/client'
+
+// Query
+import { GET_MOVIES } from '../graphql/Queries'
 
 // Styles
 import './NavBar.css'
@@ -15,7 +25,13 @@ const NavBar = () => {
   const pathname = location.pathname
   const navigate = useNavigate()
 
+  const [searchedValue, setSearchValue] = useState('')
+
   const removeAuthorization = userContainer((state) => state.removeAuthorization)
+  const addSearchedMovies = searchedMoviesContainer((state) => state.addSearchedMovies)
+
+  // eslint-disable-next-line no-unused-vars
+  const [getMovies, { data, error }] = useLazyQuery(GET_MOVIES)
 
   return (
     <>
@@ -26,7 +42,20 @@ const NavBar = () => {
               <img src={Logo} className='mr-3 h-7 md:h-10' alt='AmazonPrimeVideoLogo' />
             </Link>
 
-            <form className='flex items-center ml-0 md:-ml-8 lg:-ml-11'>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault()
+
+                await getMovies().then(async (response) => {
+                  const searchedMovies = response.data.getMovies.filter((movie) => {
+                    return movie.title.toLowerCase().includes(searchedValue.toLowerCase())
+                  })
+                  addSearchedMovies({ data: searchedMovies })
+                  navigate(`/search/${searchedValue}`)
+                })
+              }}
+              className='flex items-center ml-0 md:-ml-8 lg:-ml-11'
+            >
               <label htmlFor='simple-search' className='sr-only'>
                 Search
               </label>
@@ -47,6 +76,9 @@ const NavBar = () => {
                   </svg>
                 </div>
                 <input
+                  onChange={(e) => {
+                    setSearchValue(e.target.value)
+                  }}
                   type='text'
                   id='simple-search'
                   className='border border-gray-300 text-gray-200 text-sm rounded-tl-md rounded-bl-md w-full pl-10 py-2 sm:py-2.5 bg-transparent'
@@ -99,7 +131,7 @@ const NavBar = () => {
                   Home
                 </Link>
               </li>
-              <li className={pathname !== '/home' ? 'border-b-2 pb-1 px-2' : ''}>
+              <li className={pathname !== '/new-movie' ? '' : 'border-b-2 pb-1 px-2'}>
                 <Link
                   className={pathname !== '/new-movie' ? 'text-slate-400' : 'text-white'}
                 >

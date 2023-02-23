@@ -7,12 +7,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 // Pages
 import Login from './pages/Login'
 import Home from './pages/Home'
+import SearchedMovies from './pages/SearchedMovies'
 
 // Layouts
 import NavBar from './layouts/NavBar'
-
-// Styles
-import './styles/App.css'
 
 function App () {
   const client = new ApolloClient({
@@ -26,6 +24,7 @@ function App () {
         <Routes>
           <Route index element={<Login />} />
           <Route path='/home' element={<Home />} />
+          <Route path='/search/:search' element={<SearchedMovies />} />
         </Routes>
       </ApolloProvider>
     </Router>
