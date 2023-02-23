@@ -26,7 +26,7 @@ const MovieForm = () => {
   })
 
   return (
-    <section className='flex flex-col items-center justify-center h-screen pt-10'>
+    <section className='flex flex-col items-center justify-center h-screen mt-8'>
       <div className='sm:w-80 md:w-80 lg:w-96 bg-white rounded-lg'>
         <div className='p-6 space-y-6'>
           <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center'>
