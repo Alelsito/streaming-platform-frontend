@@ -5,3 +5,16 @@ export const LOGIN = gql`
         login(email: $email, password: $password)
     }
 `
+
+export const GET_MOVIES = gql`
+    query getMovies {
+        getMovies {
+            _id
+            title
+            description
+            likes
+            image
+            dateOfReleased
+        }
+    }
+`

@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Apollo Client
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
-// Components
+// Pages
 import Login from './pages/Login'
+import Home from './pages/Home'
+import SearchedMovies from './pages/SearchedMovies'
 
-// Styles
-import './styles/App.css'
+// Layouts
+import NavBar from './layouts/NavBar'
 
 function App () {
   const client = new ApolloClient({
@@ -18,8 +20,11 @@ function App () {
   return (
     <Router>
       <ApolloProvider client={client}>
+        <NavBar />
         <Routes>
           <Route index element={<Login />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/search/:search' element={<SearchedMovies />} />
         </Routes>
       </ApolloProvider>
     </Router>

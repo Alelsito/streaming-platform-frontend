@@ -1,6 +1,9 @@
 // React
 import { useState } from 'react'
 
+// React Router Dom
+import { useNavigate } from 'react-router-dom'
+
 // Query and Apollo Client
 import { LOGIN } from '../graphql/Queries'
 import { useLazyQuery } from '@apollo/client/react'
@@ -12,6 +15,7 @@ import userContainer from '../config/UserStore.js'
 import Logo from '../assets/AmazonPrimeVideoLogo.png'
 
 const LoginForm = () => {
+  const navigate = useNavigate()
   const addAuthorization = userContainer((state) => state.addAuthorization)
 
   const [email, setEmail] = useState('')
@@ -41,6 +45,7 @@ const LoginForm = () => {
               await login().then(function (response) {
                 if (response.data.login === 'Ok User') {
                   addAuthorization()
+                  navigate('/home')
                 } else {
                   setInvalidCredentials(true)
                 }
@@ -53,7 +58,7 @@ const LoginForm = () => {
                 htmlFor='email'
                 className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
               >
-                E-mail or phone number
+                E-mail
               </label>
               <input
                 type='email'
